@@ -12,7 +12,6 @@ for cat in text_cols:
     options = df[cat].unique()
     mapping = dict(zip(options, range(len(options))))
     mapping[nan] = -1
-    print cat
     df = df.replace({cat: mapping})
 
 df = df.fillna(-1)
