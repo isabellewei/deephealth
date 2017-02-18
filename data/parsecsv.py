@@ -1,7 +1,7 @@
 
 import pandas as pd
 
-df = pd.read_csv('data/diabetes-training.csv')
+df = pd.read_csv('diabetes-training.csv')
 del df['encounter_id']
 nan = df['weight'][0]
 cols = list(df)
@@ -14,4 +14,6 @@ for cat in text_cols:
     mapping[nan] = -1
     df = df.replace({cat: mapping})
 
-df.to_csv('data/parsed.csv',index=False)
+df = df.fillna(-1)
+print df.isnull().values.any()
+df.to_csv('parsed.csv',index=False)
