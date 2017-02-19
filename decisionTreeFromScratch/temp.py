@@ -3,12 +3,13 @@ import sys
     
 # Split a dataset based on an attribute and an attribute value
 def test_split(index, value, dataset):
-	left, right = list(), list()
-	for row in dataset:
-		if row[index] < value:
-			left.append(row)
-		else:
-			right.append(row)
+    left, right = list(), list()
+    for row in dataset:
+     #   if row[index] != -1:
+            if row[index] < value:
+                left.append(row)
+            else:
+                right.append(row)
 	return left, right
 
 # Calculate the Gini index for a split dataset
@@ -67,7 +68,7 @@ def split(node, max_depth, min_size, depth):
 		split(node['right'], max_depth, min_size, depth+1)
         
 # Build a decision tree
-def build_tree(train, max_depth, min_size):
+def build_tree(dataset, max_depth, min_size):
 	root = get_split(dataset)
 	split(root, max_depth, min_size, 1)
 	return root
@@ -81,20 +82,6 @@ def print_tree(node, depth=0):
 	else:
 		print('%s[%s]' % ((depth*' ', node)))
         
-def read_data():    
-    with open('parsed_admission.csv', 'rb') as f:
-        reader = csv.reader(f)
-        data = list(reader)
-    data = data[1:]
-    for i in range(len(data)):
-        data[i] = data[i][1:]
-        for j in range(len(data[i])):
-            data[i][j] = float(data[i][j])
-            
-    test = data[0:200]
-    train = data[201:400]
-    
-    return test, train
 
 def predict(node, row):
 	if row[node['index']] < node['value']:
@@ -117,6 +104,20 @@ def test(testData, tree):
             right += 1    
     accuracy = right/float(len(testData))
     return accuracy
+
+def read_data():    
+    with open('parsed_admission.csv', 'rb') as f:
+        reader = csv.reader(f)
+        data = list(reader)
+    data = data[1:]
+    for i in range(len(data)):
+        data[i] = data[i][1:]
+        for j in range(len(data[i])):
+            data[i][j] = float(data[i][j])
+            
+    test = data[0:200]
+    train = data[200:500]    
+    return test, train
         
     
 testdata, traindata = read_data()
@@ -135,4 +136,3 @@ dataset = [[2.771244718,1.784783929,0],
 '''
 tree = build_tree(traindata, 100, 1)
 print(test(testdata, tree))
-print("asdf")
