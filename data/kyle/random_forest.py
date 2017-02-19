@@ -4,7 +4,7 @@ Created on Fri Feb 17 22:30:04 2017
 
 @author: kylem_000
 """
-def random_forest(n_estimators = [10], crit = [0], max_features = [9],
+def random_forest(n_estimators = [10], crit = [1], max_features = [35],
                   max_depth = [None], min_samples_split = [2], min_samples_leaf = [1],
                               n_trials = 1, train_size = 0.02, test_size = 0.2):
     
@@ -24,6 +24,7 @@ def random_forest(n_estimators = [10], crit = [0], max_features = [9],
     df = pd.read_csv("parsed.csv")
     y1 = df["admission_type_id"].values
     y2 = df["discharge_disposition_id"].values
+#    columns = list(df)[0:4] + list(df)[8:9] +list(df)[12:49]
     columns = list(df)[0:5] + list(df)[8:49]
     X = df[columns].values
           
