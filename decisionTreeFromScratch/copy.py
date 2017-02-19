@@ -2,7 +2,7 @@
 from random import seed
 from random import randrange
 from csv import reader
-
+'''
 # Load a CSV file
 def load_csv(filename):
 	file = open(filename, "rb")
@@ -37,6 +37,7 @@ def accuracy_metric(actual, predicted):
 	return correct / float(len(actual)) * 100.0
 
 # Evaluate an algorithm using a cross validation split
+
 def evaluate_algorithm(dataset, algorithm, n_folds, *args):
 	folds = cross_validation_split(dataset, n_folds)
 	scores = list()
@@ -54,6 +55,7 @@ def evaluate_algorithm(dataset, algorithm, n_folds, *args):
 		accuracy = accuracy_metric(actual, predicted)
 		scores.append(accuracy)
 	return scores
+    '''
 
 # Split a dataset based on an attribute and an attribute value
 def test_split(index, value, dataset):
@@ -139,13 +141,14 @@ def predict(node, row):
 			return node['right']
 
 # Classification and Regression Tree Algorithm
+'''
 def decision_tree(train, test, max_depth, min_size):
 	tree = build_tree(train, max_depth, min_size)
 	predictions = list()
 	for row in test:
 		prediction = predict(tree, row)
 		predictions.append(prediction)
-	return(predictions)
+	return(predictions)'''
 
 
 def read_data():    
