@@ -8,14 +8,40 @@ Project: https://github.com/aymericdamien/TensorFlow-Examples/
 
 from __future__ import print_function
 
-# Import MNIST data
-from tensorflow.examples.tutorials.mnist import input_data
-
-mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
-
 import tensorflow as tf
 
-print(mnist)
+#Load Medchart data.
+
+filename_queue = tf.train.string_input_producer(["parsed.csv"])
+
+reader = tf.TextLineReader()
+key, value = reader.read(filename_queue)
+
+record_defaults = [[-1]] * 50
+
+columns = tf.decode_csv(value, record_defaults=record_defaults)
+
+#targets 7 8
+col_7 = columns[7]
+col_8 = columns[8]
+
+del columns[7]
+del columns[7]
+
+features = tf.stack(columns)
+
+with tf.Session() as sess:
+  # Start populating the filename queue.
+  coord = tf.train.Coordinator()
+  threads = tf.train.start_queue_runners(coord=coord)
+
+  for i in range(1200):
+    # Retrieve a single instance:
+    example, label = sess.run([features, col_7, col_8])
+
+  coord.request_stop()
+  coord.join(threads)
+
 
 # Parameters
 learning_rate = 0.001
@@ -75,7 +101,7 @@ with tf.Session() as sess:
     # Training cycle
     for epoch in range(training_epochs):
         avg_cost = 0.
-        total_batch = int(mnist.train.num_examples/batch_size)
+        total_batch = int(csv_size/batch_size)
         # Loop over all batches
         for i in range(total_batch):
             batch_x, batch_y = mnist.train.next_batch(batch_size)
