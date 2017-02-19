@@ -24,7 +24,7 @@ def adaboost(min_samples_split = [2], min_samples_leaf = [1], n_estimators = [50
     df = pd.read_csv("parsed.csv")
     y1 = df["admission_type_id"].values
     y2 = df["discharge_disposition_id"].values
-    columns = list(df)[1:4] + list(df)[7:49]
+    columns = list(df)[0:5] + list(df)[8:49]
     X = df[columns].values
     
     for m_s_s in min_samples_split:
