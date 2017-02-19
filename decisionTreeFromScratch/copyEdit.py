@@ -139,13 +139,23 @@ def predict(node, row):
 			return node['right']
 
 # Classification and Regression Tree Algorithm
-def decision_tree(train, test, max_depth, min_size):
-	tree = build_tree(train, max_depth, min_size)
+def decision_tree(dataset, test, max_depth, min_size):
+	tree = build_tree(dataset, max_depth, min_size)
 	predictions = list()
 	for row in test:
 		prediction = predict(tree, row)
 		predictions.append(prediction)
 	return(predictions)
+
+def test(testData, tree):
+    right = 0
+    for row in testData:
+        answer = row[-1]
+        test = predict(tree, row)
+        if answer == test:
+            right += 1    
+    accuracy = right/float(len(testData))
+    return accuracy
 
 def read_data():    
     with open('parsed_admission.csv', 'rb') as f:
@@ -157,8 +167,9 @@ def read_data():
         for j in range(len(data[i])):
             data[i][j] = float(data[i][j])
             
-    data = data[0:500]
-    return data
+    test = data[0:200]
+    train = data[200:1000]    
+    return test, train
 
 # Test CART on Bank Note dataset
 seed(1)
@@ -168,11 +179,15 @@ seed(1)
 # convert string attributes to integers
 #for i in range(len(dataset[0])):
 #	str_column_to_float(dataset, i)
-dataset = read_data()
+
 # evaluate algorithm
-n_folds = 5
-max_depth = 5
-min_size = 10
-scores = evaluate_algorithm(dataset, decision_tree, n_folds, max_depth, min_size)
-print('Scores: %s' % scores)
-print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))
+#n_folds = 5
+#max_depth = 5
+#min_size = 10
+#scores = evaluate_algorithm(dataset, decision_tree, n_folds, max_depth, min_size)
+#print('Scores: %s' % scores)
+#print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))
+
+testdata, traindata = read_data()
+tree = build_tree(traindata, 5, 10)
+print(test(testdata, tree))
