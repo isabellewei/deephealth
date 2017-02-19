@@ -1,3 +1,6 @@
 .DS_Store
 *.pyc
 .idea
+data/jerry/clf1_old.pkl
+data/jerry/clf2_old.pkl
+

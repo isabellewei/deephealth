@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="{{url_for('static',  filename='css/font-awesome.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',  filename='css/bootstrap.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',  filename='css/main.css')}}">
+
+<head>
+<title>
+Deep Health Hackathon
+</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+</head>
+<body>
+{% block html_body %}
+<!--
+-->
+</div>
+<div id="content" class="content">
+<div class="container-fluid">
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <ul class="list-group">
+  {% for category, message in messages %}
+  <li class="list-group-item list-group-item-{% if category == 'error' %}danger{% else %}info{% endif %}">{{ message }}</li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
+</div>
+
+{% block body %}
+{% endblock body %}
+</div>
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+{% block scripts %}
+{% endblock scripts %}
+
+
+{% endblock html_body %}
+</body>
+</html>
