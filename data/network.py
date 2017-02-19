@@ -10,11 +10,12 @@ from __future__ import print_function
 
 # Import MNIST data
 from tensorflow.examples.tutorials.mnist import input_data
+
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 
-print(mnist)
-
 import tensorflow as tf
+
+print(mnist)
 
 # Parameters
 learning_rate = 0.001
