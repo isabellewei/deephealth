@@ -1,3 +1,5 @@
+#http://machinelearningmastery.com/implement-decision-tree-algorithm-scratch-python/
+
 # Split a dataset based on an attribute and an attribute value
 def test_split(index, value, dataset):
 	left, right = list(), list()
@@ -95,11 +97,11 @@ def test(testData, tree):
         answer = row[-1]
         test = predict(tree, row)
         if answer == test:
-            right += 1    
+            right += 1
     accuracy = right/float(len(testData))
     return accuracy
 
-def read_data():    
+def read_data():
     '''with open('parsed_admission.csv', 'rb') as f:
         reader = csv.reader(f)
         data = list(reader)
@@ -118,15 +120,15 @@ def read_data():
         data[i] = data[i][1:]
         for j in range(len(data[i])):
             data[i][j] = float(data[i][j])
-            
-    test = data[0:200]
-    train = data[200:500]    
-    return test, train
-        
-''' 
 
-''' 
-    
+    test = data[0:200]
+    train = data[200:500]
+    return test, train
+
+'''
+
+'''
+
 testdata, traindata = read_data()
 tree = build_tree(traindata, 5, 1)
 print(test(testdata, tree))
